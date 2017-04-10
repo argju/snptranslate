@@ -40,7 +40,7 @@ def readPedigree(pedfile):
 
 def collectPedigree(infile):
     """
-        Names are edited to remove well position at the end of the name (e.g. "_B12")
+        Names are not edited.
     """
     ped = {}
     pedlist = []
@@ -52,7 +52,7 @@ def collectPedigree(infile):
             if l[0] == 'probeset_id':
                 names = l[1:]
                 for count,animal in enumerate(names):
-                    animal = animal.rsplit('_',1)[0]
+                    #animal = animal.rsplit('_',1)[0]
                     #if animal not in ped:
                     ped[animal] = {'biomat':'0',
                                  'father':'0',
@@ -121,7 +121,7 @@ def importFile(infile,ped,pedlist,mark,marklist):
     """
         Reads in all genotypes for the markers provided in the markerlist
         Converts from 0/1/2 to 1/2/3/4
-        Names are edited to remove well position at the end of the name (e.g. "_B12")
+        Names are not edited.
     """
     gen = np.zeros((len(pedlist),len(marklist)))
     with open(infile,'r') as fin:
@@ -140,7 +140,7 @@ def importFile(infile,ped,pedlist,mark,marklist):
             m = mark[marker]['alleles']
             icol = mark[marker]['rank']
             for ind,name in enumerate(names):
-                name = name.rsplit('_',1)[0]
+                #name = name.rsplit('_',1)[0]
                 try:
                     irow = ped[name]['rank']
                 except KeyError:
